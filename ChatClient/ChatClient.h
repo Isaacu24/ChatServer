@@ -13,8 +13,8 @@ public:
 	{
 		m_PortNum = num;
 	}
-
 	void SetIPNumber(const std::string& num)
+
 	{
 		m_IPNum = num;
 	}

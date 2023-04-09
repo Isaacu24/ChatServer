@@ -188,12 +188,13 @@ void ChatServer::ReadProc(int index)
 	{
 		if (index == i)
 		{
-			str = nicknames[i] + " ´Ô: " + msg;
+			str = "³ª: ";
+			str += msg;
 		}
 
 		else
 		{
-			str = nicknames[index] + " ´Ô: " + msg;
+			str = nicknames[index] + "´Ô: " + msg;
 		}
 
 		send(socks[i], str.c_str(), sizeof(str), 0);
@@ -209,7 +210,7 @@ void ChatServer::CloseProc(int index)
 
 	std::cout << nicknames[index] + " Á¢¼Ó Á¾·á" << std::endl;
 
-	std::string str = nicknames[index] + " ´ÔÀÌ ³ª°¬½À´Ï´Ù";
+	std::string str = nicknames[index] + " ´ÔÀÌ ³ª°¬½À´Ï´Ù.";
 
 	closesocket(socks[index]);
 	WSACloseEvent(handles[index]);

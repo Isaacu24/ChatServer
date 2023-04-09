@@ -1,5 +1,4 @@
 #include "ChatClient.h"
-
 #define MSG_SIZE 1024
 
 ChatClient::ChatClient()
@@ -38,14 +37,15 @@ void ChatClient::StartClinet()
 
 	_beginthread(RecvThreadPoint, 0, (void*)sock);
 
-	send(sock, m_NickName.c_str(), sizeof(m_NickName), 0);
+	char msg[MSG_SIZE] = {};
 
-	char msg[MSG_SIZE] = "";
+	int send_length = send(sock, m_NickName.c_str(), sizeof(m_NickName), 0);
+	std::cin.ignore(INT_MAX,'\n');
 
 	while (true)
 	{
-		gets_s(msg, sizeof(msg));
-		send(sock, msg, sizeof(msg), 0);
+		gets_s(msg, ARRAYSIZE(msg)); //블로킹 함수
+		send(sock, msg, sizeof(msg), 0); //블로킹 함수
 
 		if (0 == strcmp(msg, "system/exit"))
 		{
@@ -66,7 +66,7 @@ void ChatClient::RecvThreadPoint(void* param)
 
 	while (recv(sock, msg, sizeof(msg), 0))
 	{
-		std::cout << msg << std::endl;
+		std::cout << msg << '\n';
 	}
 
 	closesocket(sock);
